@@ -1,7 +1,6 @@
+# Car Rental System DotNet
 
-# Car Rental System API
-
-Welcome to the **Car Rental System API**, a RESTful service designed to manage a fleet of cars, user accounts, and rental operations. This API leverages **C#** and **Entity Framework (EF)** for scalability and performance.
+Welcome to the **Car Rental System Dotnet API**, a RESTful service designed to manage a fleet of cars, user accounts, and rental operations. This API leverages **C#** and **Entity Framework (EF)** for scalability and performance.
 
 ---
 
@@ -186,24 +185,55 @@ Welcome to the **Car Rental System API**, a RESTful service designed to manage a
 
 ## Postman Testing
 
-**Placeholder for Postman Collection Screenshot**:
 
-Insert screenshots of Postman requests here to showcase API testing for:
-1. Adding a car.
-2. Updating a car.
-3. User registration.
-4. User login.
-5. Booking a car.
+### Users
 
+1. User Registration Invalid
+<img width="1005" alt="image" src="https://github.com/user-attachments/assets/78e83653-934c-4be3-b1ce-bcd4909b8050">
+
+2. User Registration Valid
+<img width="1035" alt="image" src="https://github.com/user-attachments/assets/6e70e05d-298b-45f9-ae8a-c7256aef6699">
+
+
+3. User Login Invalid
+<img width="1007" alt="image" src="https://github.com/user-attachments/assets/faee014d-fc2d-4b63-8ec2-e38161fd00bc">
+
+
+4. User Login Valid
+<img width="1006" alt="image" src="https://github.com/user-attachments/assets/77f5ff11-aa3e-410e-9590-7251e3b51a43">
+
+
+### Cars
+
+To access cars, first we should login to JWT Bearer Token
+
+<img width="717" alt="image" src="https://github.com/user-attachments/assets/d0625822-4287-4a1f-b3d4-3b0f77557e84">
+
+1. Post New Car as Admin
+<img width="1005" alt="image" src="https://github.com/user-attachments/assets/5add2565-8642-458e-8d08-39c122887872">
+2. Post New Car as User
+<img width="1043" alt="image" src="https://github.com/user-attachments/assets/4e387577-63a5-46b6-9006-b07773e29b17">
+
+3. Get All Cars
+<img width="1014" alt="image" src="https://github.com/user-attachments/assets/89807603-a3a2-43d6-aad4-bcfdbfc23f7e">
+4. Put Car as Admin
+<img width="1012" alt="image" src="https://github.com/user-attachments/assets/c386481d-c860-49a1-9acd-87714bb9dcf9">
+5. Put Car as User
+<img width="1016" alt="image" src="https://github.com/user-attachments/assets/3fa3dddb-31d8-43fc-946e-9dd79499a752">
+
+6. Delete Car as Admin
+<img width="1020" alt="image" src="https://github.com/user-attachments/assets/bb1a9f29-b515-41d9-9dd0-69106f929ef4">
+
+7. Delete Car as User
+<img width="1005" alt="image" src="https://github.com/user-attachments/assets/3ad7226e-e28c-4ab1-8d9e-c938c9182c61">
+
+8. Book Car as Admin
+<img width="1016" alt="image" src="https://github.com/user-attachments/assets/6fb01b58-9895-4416-a701-10d3033aa7ed">
 ---
 
 ## Swagger UI
 
-Swagger is integrated for API exploration. Start the API and navigate to `http://localhost:5001/swagger` to view the Swagger UI.
-
-**Placeholder for Swagger Screenshot**:
-
-Insert a screenshot of the Swagger UI home page.
+<img width="1097" alt="image" src="https://github.com/user-attachments/assets/e0ce1a69-0653-4832-bbe2-3ab7e78d0284">
 
 ---
 
