@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
+using CarRentalSystem.Interfaces;
+using CarRentalSystem.Notifications;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,10 +77,8 @@ builder.Services.AddSwaggerGen(options =>
 	});
 });
 
-// Register EmailService with SendGrid API key
-builder.Services.AddTransient<EmailService>(provider => new EmailService(
-	builder.Configuration["SendGrid:ApiKey"]
-));
+// Register EmailService with Gmail credentials
+builder.Services.AddTransient<NotificationService>();
 
 var app = builder.Build();
 

@@ -1,34 +1,32 @@
-﻿using CarRentalSystem.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using CarRentalSystem.Models;
+using CarRentalSystem.Interfaces;
 
 namespace CarRentalSystem.Repositories
 {
 	public class UserRepository : IUserRepository
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context; // Database context
 
 		public UserRepository(ApplicationDbContext context)
 		{
-			_context = context;
+			_context = context; // Initialize context
 		}
 
-		// Retrieve user by email
-		public User GetUserByEmail(string email)
+		public void Add(User user)
 		{
-			return _context.Users.FirstOrDefault(u => u.Email == email);
+			_context.Users.Add(user); // Add user to context
+			_context.SaveChanges(); // Save changes to database
 		}
 
-		// Add a new user to the database
-		public void AddUser(User user)
+		public User FindById(Guid userId)
 		{
-			_context.Users.Add(user);
-			_context.SaveChanges();
+			return _context.Users.Find(userId); // Find user by ID
 		}
 
-		// Fetch user by unique identifier
-		public User GetUserById(Guid id)
+		public User FindByEmail(string email)
 		{
-			return _context.Users.Find(id);
+			return _context.Users.FirstOrDefault(u => u.Email == email); // Find user by email
 		}
 	}
 }

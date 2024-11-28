@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using CarRentalSystem.Models;
 using CarRentalSystem.Repositories;
 using CarRentalSystem.Services;
+using CarRentalSystem.Interfaces;
+using CarRentalSystem.Notifications;
 
 namespace CarRentalSystem.Controllers
 {
@@ -11,19 +13,20 @@ namespace CarRentalSystem.Controllers
     public class CarsController : ControllerBase
     {
         private readonly ICarRepository _carRepository;
-        private readonly EmailService _emailService;
+        private readonly NotificationService _emailService;
 
-        public CarsController(ICarRepository carRepository, EmailService emailService)
-        {
-            _carRepository = carRepository;
-            _emailService = emailService;
-        }
+		public CarsController(ICarRepository carRepository, NotificationService emailService)
+		{
+			_carRepository = carRepository;
+			_emailService = emailService;
+		}
+
 
         // GET /cars
         [HttpGet]
         public IActionResult GetAvailableCars()
         {
-            var cars = _carRepository.GetAvailableCars();
+            var cars = _carRepository.FindAvailable();
             return Ok(cars);
         }
 
@@ -35,7 +38,7 @@ namespace CarRentalSystem.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            _carRepository.AddCar(car);
+            _carRepository.Add(car);
             return CreatedAtAction(nameof(GetAvailableCars), new { id = car.Id }, car);
         }
 
@@ -44,7 +47,7 @@ namespace CarRentalSystem.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateCar(Guid id, [FromBody] Car car)
         {
-            var existingCar = _carRepository.GetCarById(id);
+            var existingCar = _carRepository.FindById(id);
             if (existingCar == null)
                 return NotFound();
 
@@ -54,7 +57,7 @@ namespace CarRentalSystem.Controllers
             existingCar.PricePerDay = car.PricePerDay;
             existingCar.IsAvailable = car.IsAvailable;
 
-            _carRepository.UpdateCarAvailability(existingCar.Id, car.IsAvailable);
+            _carRepository.UpdateAvailability(existingCar.Id, car.IsAvailable);
             return NoContent();
         }
 
@@ -63,11 +66,11 @@ namespace CarRentalSystem.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteCar(Guid id)
         {
-            var car = _carRepository.GetCarById(id);
+            var car = _carRepository.FindById(id);
             if (car == null)
                 return NotFound();
 
-            _carRepository.DeleteCar(id);
+            _carRepository.Remove(id);
             return NoContent();
         }
 
@@ -76,11 +79,11 @@ namespace CarRentalSystem.Controllers
         [HttpPost("book")]
         public async Task<IActionResult> BookCar([FromBody] BookingRequest bookingRequest)
         {
-            var car = _carRepository.GetCarById(bookingRequest.CarId);
+            var car = _carRepository.FindById(bookingRequest.CarId);
             if (car == null || !car.IsAvailable)
                 return BadRequest("The car is not available for booking.");
 
-            _carRepository.UpdateCarAvailability(car.Id, false);
+            _carRepository.UpdateAvailability(car.Id, false);
 
             await _emailService.SendBookingConfirmation(
                 bookingRequest.UserEmail,
@@ -93,7 +96,7 @@ namespace CarRentalSystem.Controllers
             _ = Task.Run(async () =>
             {
                 await Task.Delay(TimeSpan.FromDays(1));
-                _carRepository.UpdateCarAvailability(car.Id, true);
+                _carRepository.UpdateAvailability(car.Id, true);
             });
 
             return Ok(new { message = "Car booked successfully. A confirmation email has been sent." });

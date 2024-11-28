@@ -30,18 +30,5 @@ namespace CarRentalSystem.Models
         [Required(ErrorMessage = "Role is required.")]
         [RegularExpression("^(Admin|User)$", ErrorMessage = "Invalid role.")]
         public required string Role { get; set; }
-
-        // Optional phone number
-        [Phone(ErrorMessage = "Invalid phone.")]
-        [StringLength(15, ErrorMessage = "Max 15 characters.")]
-        public string? PhoneNumber { get; set; }
-
-        // Optional age
-        [Range(18, 100, ErrorMessage = "18-100 only.")]
-        public int? Age { get; set; }
-
-        // Optional address
-        [StringLength(200, ErrorMessage = "Max 200 characters.")]
-        public string? Address { get; set; }
     }
 }

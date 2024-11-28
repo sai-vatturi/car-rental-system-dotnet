@@ -13,15 +13,12 @@ namespace CarRentalSystem.Controllers
 		private readonly UserService _userService;
 
 		/// Initializes a new instance of the <see cref="UsersController"/> class.
-		/// <param name="userService">The user service.</param>
 		public UsersController(UserService userService)
 		{
 			_userService = userService;
 		}
 
 		/// Registers a new user.
-		/// <param name="user">The user to register.</param>
-		/// <returns>Action result.</returns>
 		[HttpPost("register")]
 		public IActionResult RegisterUser([FromBody] User user)
 		{
@@ -36,8 +33,6 @@ namespace CarRentalSystem.Controllers
 		}
 
 		/// Authenticates a user and returns a token.
-		/// <param name="request">The login request.</param>
-		/// <returns>Action result.</returns>
 		[HttpPost("login")]
 		public IActionResult Login([FromBody] LoginRequest request)
 		{

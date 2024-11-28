@@ -24,7 +24,6 @@ namespace CarRentalSystem.Filters
 
 		public void OnActionExecuted(ActionExecutedContext context)
 		{
-			// No post-execution action required
 		}
 	}
 }

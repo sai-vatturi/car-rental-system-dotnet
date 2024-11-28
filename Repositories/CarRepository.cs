@@ -1,57 +1,51 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using CarRentalSystem.Interfaces;
 using CarRentalSystem.Models;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace CarRentalSystem.Repositories
 {
 	public class CarRepository : ICarRepository
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context; // Database context
 
 		public CarRepository(ApplicationDbContext context)
 		{
-			_context = context;
+			_context = context; // Initialize context
 		}
 
-		// Add a new car to the database
-		public void AddCar(Car car)
+		public void Add(Car car)
 		{
-			_context.Cars.Add(car);
-			_context.SaveChanges();
+			_context.Cars.Add(car); // Add car to database
+			_context.SaveChanges(); // Save changes
 		}
 
-		// Retrieve a car by its unique identifier
-		public Car GetCarById(Guid carId)
+		public Car FindById(Guid carId)
 		{
-			return _context.Cars.Find(carId);
+			return _context.Cars.Find(carId); // Find car by ID
 		}
 
-		// Get a list of all available cars
-		public List<Car> GetAvailableCars()
+		public List<Car> FindAvailable()
 		{
-			return _context.Cars.Where(car => car.IsAvailable).ToList();
+			return _context.Cars.Where(car => car.IsAvailable).ToList(); // Find available cars
 		}
 
-		// Update the availability status of a car
-		public void UpdateCarAvailability(Guid carId, bool isAvailable)
+		public void UpdateAvailability(Guid carId, bool isAvailable)
 		{
-			var car = _context.Cars.Find(carId);
+			var car = _context.Cars.Find(carId); // Find car by ID
 			if (car != null)
 			{
-				car.IsAvailable = isAvailable;
-				_context.SaveChanges();
+				car.IsAvailable = isAvailable; // Update availability
+				_context.SaveChanges(); // Save changes
 			}
 		}
 
-		// Remove a car from the database
-		public void DeleteCar(Guid carId)
+		public void Remove(Guid carId)
 		{
-			var car = _context.Cars.Find(carId);
+			var car = _context.Cars.Find(carId); // Find car by ID
 			if (car != null)
 			{
-				_context.Cars.Remove(car);
-				_context.SaveChanges();
+				_context.Cars.Remove(car); // Remove car from database
+				_context.SaveChanges(); // Save changes
 			}
 		}
 	}
