@@ -237,7 +237,10 @@ To access cars, first we should login to JWT Bearer Token
 
 ---
 
-## Example Workflows
+## Succesfull Booking Confirmation Email
+
+<img width="892" alt="image" src="https://github.com/user-attachments/assets/80b55ab6-989f-430c-9384-98b7ae215e6b">
+
 
 ### Car Booking Workflow
 1. **User Registration**:
